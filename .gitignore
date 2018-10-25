@@ -12,11 +12,11 @@ Assets/Rocks Pack/
 Assets/BackwoodsGaming/
 Assets/Corvette/
 Assets/Free Droid/
-Assets/PyroParticles/
-Assets/SpaceShipPack/
+Assets/Voxel Turrets/
+Assets/Dungeon Pack/
 Assets/Standard Assets/
-Assets/StarSparrow/
-
+Assets/3SkyBoxes/
+Assets/Voxel Assets/
 
 # Visual Studio cache directory
 .vs/
@@ -50,3 +50,7 @@ sysinfo.txt
 Assets/318688__limitsnap-creations__rocket-thrust-effect.wav
 Assets/318688__limitsnap-creations__rocket-thrust-effect.wav.meta
 Assets/3DForge.meta
+Assets/3Skyboxes.meta
+Assets/Dungeon Pack.meta
+Assets/Voxel Assets.meta
+Assets/Voxel Turrets.meta
