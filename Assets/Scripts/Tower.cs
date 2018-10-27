@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour {
 
+    // parameters
     [SerializeField] Transform objectToPan;
-    [SerializeField] Transform targetEnemy;
-    [SerializeField] float rangeOfAttack = 25f;
+    [SerializeField] float distanceToTarget = 25f;
     [SerializeField] GameObject gunEffects;
     [SerializeField] int gunDamage = 1;
 
+    // state
+    Transform targetEnemy;
+
     // Update is called once per frame
-    void Update () {
+    void Update ()
+    {
+        SetTargetEnemy();
+
         if (targetEnemy)
         {
             objectToPan.LookAt(targetEnemy);
@@ -21,7 +27,33 @@ public class Tower : MonoBehaviour {
         {
             StopFiring();
         }
-	}
+    }
+
+    private void SetTargetEnemy()
+    {
+        var sceneEnemies = FindObjectsOfType<Enemy>();
+        if(sceneEnemies.Length == 0) { return; }
+
+        Transform closestEnemy = sceneEnemies[0].transform;
+
+        foreach (Enemy individualEnemy in sceneEnemies)
+        {
+            closestEnemy = GetClosest(closestEnemy, individualEnemy.transform);
+        }
+
+        targetEnemy = closestEnemy;
+    }
+
+    private Transform GetClosest(Transform transformA, Transform transformB)
+    {
+        float distanceToClosest = Vector3.Distance(transform.position, transformA.position);
+        float distanceToTest = Vector3.Distance(transform.position, transformB.position);
+
+        if (distanceToClosest < distanceToTest)
+        { return transformA; }
+
+        return transformB;
+    }
 
     public int GetGunDamage()
     {
@@ -32,7 +64,7 @@ public class Tower : MonoBehaviour {
     {
         var emissionModule = gunEffects.GetComponent<ParticleSystem>().emission;
         float distance = Vector3.Distance(targetEnemy.position, objectToPan.position);
-        if(distance < rangeOfAttack)
+        if(distance < distanceToTarget)
         {
             emissionModule.enabled = true;
         }

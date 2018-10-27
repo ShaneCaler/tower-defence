@@ -4,13 +4,21 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour {
 
+    [Range(2f, 50f)][SerializeField] float secondsBetweenSpawns = 3f;
+    [SerializeField] Enemy enemy;
+
 	// Use this for initialization
 	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+        StartCoroutine(SpawnEnemies());
+    }
+
+    IEnumerator SpawnEnemies()
+    {
+        while (true)
+        {
+            Quaternion test = new Quaternion();
+            Instantiate(enemy);
+            yield return new WaitForSeconds(secondsBetweenSpawns);
+        }
+    }
 }
