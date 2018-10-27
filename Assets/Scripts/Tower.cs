@@ -6,7 +6,7 @@ public class Tower : MonoBehaviour {
 
     [SerializeField] Transform objectToPan;
     [SerializeField] Transform targetEnemy;
-    [SerializeField] float distanceToTargetFrom = 25f;
+    [SerializeField] float rangeOfAttack = 25f;
     [SerializeField] GameObject gunEffects;
     [SerializeField] int gunDamage = 1;
 
@@ -32,7 +32,7 @@ public class Tower : MonoBehaviour {
     {
         var emissionModule = gunEffects.GetComponent<ParticleSystem>().emission;
         float distance = Vector3.Distance(targetEnemy.position, objectToPan.position);
-        if(distance < distanceToTargetFrom)
+        if(distance < rangeOfAttack)
         {
             emissionModule.enabled = true;
         }

@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour {
     [Header("General")]
     [SerializeField] float dwellTime = 1f;
     [SerializeField] Mesh meshForCollider;
+    [SerializeField] GameObject hitFX;
     [SerializeField] GameObject deathFX;
     [SerializeField] Transform parent;
     [SerializeField] float levelLoadDelay = 1f;
@@ -35,15 +36,32 @@ public class Enemy : MonoBehaviour {
 
     void OnParticleCollision(GameObject other)
     {
+        ProcessHit();
+    }
+
+    private void ProcessHit()
+    {
+        GameObject fx = Instantiate(hitFX, transform.position, Quaternion.identity);
+        StartCoroutine(DestroyEffects(fx));
         hitPoints = hitPoints - tower.GetGunDamage();
         print(hitPoints);
         if (hitPoints <= 0 || hitPoints < 1)
         {
-            GameObject fx = Instantiate(deathFX, transform.position, Quaternion.identity);
-            fx.transform.parent = parent;
-            Destroy(gameObject);
-            Invoke("ReloadLevel", levelLoadDelay);
+            DestroyEnemy();
         }
+    }
+
+    private void DestroyEnemy()
+    {
+        GameObject fx = Instantiate(deathFX, transform.position, Quaternion.identity);
+        StartCoroutine(DestroyEffects(fx));
+        Destroy(gameObject);
+    }
+
+    IEnumerator DestroyEffects(GameObject fx)
+    {
+        yield return new WaitForSeconds(.5f);
+        Destroy(fx);
     }
 
     private void FindAndFollowPath()
