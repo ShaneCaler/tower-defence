@@ -1,15 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class Waypoint : MonoBehaviour {
-
-    [SerializeField] Color defaultColor;
-    [SerializeField] Color exploredColor;
 
     Vector2Int gridPos;
     const int gridSize = 10;
     public bool isExplored = false; // OK to be public b/c this is a data class
+    public bool isPlaceable = true;
     public Waypoint exploredFrom;
     Waypoint waypoint;
 
@@ -30,21 +29,11 @@ public class Waypoint : MonoBehaviour {
         );
     } 
 
-    public void SetTopColor(Color color)
+    void OnMouseOver()
     {
-        MeshRenderer topMeshRenderer = transform.Find("Top").GetComponent<MeshRenderer>();
-        topMeshRenderer.material.color = color;
-    }
-	// Update is called once per frame
-	void Update () {
-        if (waypoint.isExplored)
+        if (CrossPlatformInputManager.GetButtonDown("Fire1") && waypoint.isPlaceable)
         {
-            waypoint.SetTopColor(exploredColor);
+            Debug.Log("Mouse is over " + gameObject);
         }
-        else
-        {
-            waypoint.SetTopColor(defaultColor);
-        }
-
     }
 }

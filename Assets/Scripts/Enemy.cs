@@ -44,7 +44,6 @@ public class Enemy : MonoBehaviour {
         GameObject fx = Instantiate(hitFX, transform.position, Quaternion.identity);
         StartCoroutine(DestroyEffects(fx));
         hitPoints = hitPoints - tower.GetGunDamage();
-        print(hitPoints);
         if (hitPoints <= 0 || hitPoints < 1)
         {
             DestroyEnemy();
@@ -73,13 +72,11 @@ public class Enemy : MonoBehaviour {
 
     IEnumerator FollowPath(List<Waypoint> path)
     {
-        print("Starting patrol");
         foreach (Waypoint waypoint in path)
         {
             transform.position = waypoint.transform.position;
             yield return new WaitForSeconds(dwellTime);
         }
-        print("ending patrol");
     }
 
     void ReloadLevel() // referenced by string

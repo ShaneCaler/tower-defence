@@ -16,7 +16,6 @@ public class EnemySpawner : MonoBehaviour {
     {
         while (true)
         {
-            Quaternion test = new Quaternion();
             Instantiate(enemy);
             yield return new WaitForSeconds(secondsBetweenSpawns);
         }
