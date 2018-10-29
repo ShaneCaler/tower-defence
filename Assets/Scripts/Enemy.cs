@@ -22,7 +22,6 @@ public class Enemy : MonoBehaviour {
 
     void Start ()
     {
-        tower = FindObjectOfType<Tower>();
         AddCollider();
         FindAndFollowPath();
     }
@@ -42,7 +41,12 @@ public class Enemy : MonoBehaviour {
     private void ProcessHit()
     {
         GameObject fx = Instantiate(hitFX, transform.position, Quaternion.identity);
+        fx.transform.parent = gameObject.transform;
+        tower = FindObjectOfType<Tower>();
         StartCoroutine(DestroyEffects(fx));
+        // todo support multiple types of tower
+        // towers = FindObjectsOfType<Tower>();
+        // foreach to cycle through diff. towers ?
         hitPoints = hitPoints - tower.GetGunDamage();
         if (hitPoints <= 0 || hitPoints < 1)
         {
@@ -53,8 +57,9 @@ public class Enemy : MonoBehaviour {
     private void DestroyEnemy()
     {
         GameObject fx = Instantiate(deathFX, transform.position, Quaternion.identity);
+        fx.transform.parent = gameObject.transform;
         StartCoroutine(DestroyEffects(fx));
-        Destroy(gameObject);
+        Destroy(gameObject, 1f);
     }
 
     IEnumerator DestroyEffects(GameObject fx)

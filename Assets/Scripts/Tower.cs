@@ -9,6 +9,7 @@ public class Tower : MonoBehaviour {
     [SerializeField] float distanceToTarget = 25f;
     [SerializeField] GameObject gunEffects;
     [SerializeField] int gunDamage = 1;
+    public Waypoint baseWaypoint; // what the tower is standing on
 
     // state
     Transform targetEnemy;

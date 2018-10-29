@@ -16,6 +16,7 @@ public class Waypoint : MonoBehaviour {
     {
         waypoint = GetComponent<Waypoint>();
     }
+
     public int GetGridSize()
     {
         return gridSize;
@@ -27,13 +28,13 @@ public class Waypoint : MonoBehaviour {
             Mathf.RoundToInt(transform.position.x / gridSize),
             Mathf.RoundToInt(transform.position.z / gridSize)
         );
-    } 
+    }
 
     void OnMouseOver()
     {
-        if (CrossPlatformInputManager.GetButtonDown("Fire1") && waypoint.isPlaceable)
+        if (Input.GetMouseButtonDown(0) && waypoint.isPlaceable)
         {
-            Debug.Log("Mouse is over " + gameObject);
+            FindObjectOfType<TowerFactory>().AddTower(this);
         }
     }
 }
