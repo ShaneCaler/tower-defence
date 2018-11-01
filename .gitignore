@@ -3,13 +3,7 @@
 [Oo]bj/
 [Bb]uild/
 [Bb]uilds/
-Assets/3DForge/
-Assets/Blacksmith Environments/
-Assets/Gaia/
-Assets/GaiaSessions/
-Assets/JMO Assets
-Assets/Rocks Pack/
-Assets/BackwoodsGaming/
+Assets/PostProcessing/
 Assets/Santa Claus Is Coming to Town/
 Assets/Prefabs/
 Assets/Voxel Turrets/
@@ -56,3 +50,4 @@ Assets/Voxel Assets.meta
 Assets/Voxel Turrets.meta
 Assets/Santa Claus Is Coming to Town.meta
 Assets/Standard Assets.meta
+Assets/PostProcessing.meta

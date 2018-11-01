@@ -30,8 +30,6 @@ public class TowerFactory : MonoBehaviour {
         newTower.transform.parent = towerParentTransform.transform;
         baseWaypoint.isPlaceable = false;
         towers.Enqueue(newTower);
-
-        print("in if " + towers.Count);
     }
 
     private void MoveExistingTower(Waypoint newBaseWaypoint)
@@ -43,7 +41,5 @@ public class TowerFactory : MonoBehaviour {
         oldTower.transform.position = newBaseWaypoint.transform.position;
 
         towers.Enqueue(oldTower);
-
-        print("in else " + towers.Count);
     }
 }

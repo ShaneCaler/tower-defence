@@ -5,12 +5,14 @@ using UnityEngine;
 public class Pathfinder : MonoBehaviour {
 
     Dictionary<Vector2Int, Waypoint> grid = new Dictionary<Vector2Int, Waypoint>();
-    [SerializeField] Waypoint start, end;
     Queue<Waypoint> queue = new Queue<Waypoint>();
-    [SerializeField] bool isRunning = true; // todo make private
-    Waypoint searchCenter;
     List<Waypoint> path = new List<Waypoint>();
+    [SerializeField] Waypoint start, end;
+    [SerializeField] int castleHitValue = 100;
 
+    Scoreboard scoreBoard;
+    Waypoint searchCenter;
+    bool isRunning = true; // todo make private
 
     Vector2Int[] directions =
     {
@@ -20,6 +22,10 @@ public class Pathfinder : MonoBehaviour {
         Vector2Int.left // (-1, 0)  
     };
 
+    private void Start()
+    {
+        scoreBoard = FindObjectOfType<Scoreboard>();
+    }
     public List<Waypoint> GetPath()
     {
         if (path.Count == 0)

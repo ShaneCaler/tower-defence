@@ -7,7 +7,7 @@ public class Tower : MonoBehaviour {
     // parameters
     [SerializeField] Transform objectToPan;
     [SerializeField] float distanceToTarget = 25f;
-    [SerializeField] GameObject gunEffects;
+    [SerializeField] GameObject gunFX;
     [SerializeField] int gunDamage = 1;
     public Waypoint baseWaypoint; // what the tower is standing on
 
@@ -63,7 +63,7 @@ public class Tower : MonoBehaviour {
 
     void ProcessFiring()
     {
-        var emissionModule = gunEffects.GetComponent<ParticleSystem>().emission;
+        var emissionModule = gunFX.GetComponent<ParticleSystem>().emission;
         float distance = Vector3.Distance(targetEnemy.position, objectToPan.position);
         if(distance < distanceToTarget)
         {
@@ -77,7 +77,7 @@ public class Tower : MonoBehaviour {
 
     void StopFiring()
     {
-        var emissionModule = gunEffects.GetComponent<ParticleSystem>().emission;
+        var emissionModule = gunFX.GetComponent<ParticleSystem>().emission;
         emissionModule.enabled = false;
     }
 }
