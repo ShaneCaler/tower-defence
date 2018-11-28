@@ -13,7 +13,7 @@ Using a mouse, place a maximum of four towers around the level to stop the enemy
 
 Upon completing this prototype, I've learned how to:
 
-Manipulate the editor through code to allow for snap-positioning of GameObjects
+- Manipulate the editor through code to allow for snap-positioning of GameObjects
 - Implement basic breadth-first path-finding using a variety of C# paradigms like coroutines, lists and queues
 - Configure particles to act as projectiles and allow for damage to be done and received
 - Add colliders and other components to GameObjects at run-time
