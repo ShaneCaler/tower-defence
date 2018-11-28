@@ -1,9 +1,15 @@
 This prototype was made by following along with this Unity C# course: https://www.udemy.com/unitycourse2/
 
 WebGL Demo:
+
 https://scaler.itch.io/tower-defense-prototype
+
+
 HOW TO PLAY: 
+
 Using a mouse, place a maximum of four towers around the level to stop the enemy helldogs from reaching your base.
+
+
 
 Upon completing this prototype, I've learned how to:
 
