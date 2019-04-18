@@ -1,5 +1,5 @@
 <p align="center"> 
-<img src="TowerDefenseBanner2.0.png">
+<img src="https://i.imgur.com/xOFyyVi.png">
 </p>
 
 
