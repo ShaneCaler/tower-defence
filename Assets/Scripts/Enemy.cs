@@ -7,30 +7,36 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour {
 
-    [Header("General")]
-    [SerializeField] float dwellTime = .5f;
-    [SerializeField] Mesh meshForCollider;
+	[SerializeField] int hitPoints = 10;
+	[SerializeField] Mesh meshForCollider;
     [SerializeField] ParticleSystem hitFX;
     [SerializeField] ParticleSystem deathFX;
     [SerializeField] AudioClip deathSFX;
     [SerializeField] ParticleSystem goalFX;
-    [SerializeField] Transform parent;
+
+	EnemyType enemyType;
     EnemySpawner enemySpawner;
+	Animator anim;
     Camera mainCamera;
-
-    [Header("Enemy Specific")]
-    [SerializeField] int hitPoints = 10;
-
     Tower tower;
+	Pathfinder pathfinder;
     int numEnemiesKilled;
+	float dwellTime = .5f;
 
-    void Start ()
+	void Start ()
     {
-        AddCollider();
-        FindAndFollowPath();
         enemySpawner = FindObjectOfType<EnemySpawner>();
         mainCamera = FindObjectOfType<Camera>();
-    }
+		pathfinder = FindObjectOfType<Pathfinder>();
+		enemyType = GameManager.Instance.enemyType;
+		dwellTime = GameManager.Instance.enemyDwellTime;
+
+		if (enemyType == EnemyType.Warrior)
+			anim = GetComponent<Animator>();
+
+		AddCollider();
+		FindAndFollowPath();
+	}
 
     private void AddCollider()
     {
@@ -72,26 +78,54 @@ public class Enemy : MonoBehaviour {
         var fx = Instantiate(deathFX, transform.position, Quaternion.identity);
         fx.Play();
         Destroy(fx, 2f);
-        AudioSource.PlayClipAtPoint(deathSFX, mainCamera.transform.position);
+		enemySpawner.IncreaseEnemiesKilled();
+		AudioSource.PlayClipAtPoint(deathSFX, mainCamera.transform.position);
         Destroy(gameObject);
-        enemySpawner.IncreaseEnemiesKilled();
     }
 
     private void FindAndFollowPath()
     {
-        Pathfinder pathfinder = FindObjectOfType<Pathfinder>(); // can be dangerous if we have another pathfinder
         var path = pathfinder.GetPath();
         StartCoroutine(FollowPath(path));
     }
 
     IEnumerator FollowPath(List<Waypoint> path)
     {
-        foreach (Waypoint waypoint in path)
+		if (enemyType == EnemyType.Warrior)
+			anim.SetBool("Moving", true);
+
+		for(int i = 0; i < path.Count; i++)
+		{
+			Debug.Log("Position = " + transform.position);
+			Debug.Log("path[i] = " + path[i].gameObject.name);
+			if (path[i] == pathfinder.start)
+			{
+				// do nothing
+			}
+			else if(path[i] == pathfinder.end)
+			{
+				Debug.Log("Looking at " + pathfinder.end.transform);
+				transform.LookAt(pathfinder.end.transform);
+			}
+			else if (path[i+1] != null)
+			{
+				Debug.Log("Looking at " + path[i + 1].transform);
+				transform.LookAt(path[i + 1].transform);
+			}
+
+
+			transform.position = path[i].transform.position;
+			yield return new WaitForSeconds(dwellTime);
+		}
+
+        /*foreach (Waypoint waypoint in path)
         {
-            transform.position = waypoint.transform.position;
-            yield return new WaitForSeconds(dwellTime);
-        }
-        SelfDestruct();
+
+        }*/
+
+		if (enemyType == EnemyType.Warrior)
+			anim.SetBool("Moving", false);
+		SelfDestruct();
     }
 
     private void SelfDestruct()
@@ -100,5 +134,13 @@ public class Enemy : MonoBehaviour {
         fx.Play();
         Destroy(gameObject);
     }
+
+	//Placeholder​ ​functions​ ​for​ ​Animation​ ​events
+	public void Hit() { }
+	public void Shoot() { }
+	public void FootR() { }
+	public void FootL() { }
+	public void Land() { }
+	public void WeaponSwitch() { }
 
 }

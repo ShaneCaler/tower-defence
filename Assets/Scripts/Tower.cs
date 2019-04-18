@@ -65,12 +65,17 @@ public class Tower : MonoBehaviour {
     {
         var emissionModule = gunFX.GetComponent<ParticleSystem>().emission;
         float distance = Vector3.Distance(targetEnemy.position, objectToPan.position);
-        if(distance < distanceToTarget)
+
+        print("Distance: " + distance + " and DtoT: " + distanceToTarget);
+
+        if (distance < distanceToTarget)
         {
+            print("Emission enabled = true");
             emissionModule.enabled = true;
         }
         else
         {
+            print("Emission enabled = false");
             emissionModule.enabled = false;
         }
     }

@@ -9,6 +9,7 @@ public class Waypoint : MonoBehaviour {
     const int gridSize = 10;
     public bool isExplored = false; // OK to be public b/c this is a data class
     public bool isPlaceable = true;
+	public bool hasTower;
     public Waypoint exploredFrom;
     Waypoint waypoint;
 

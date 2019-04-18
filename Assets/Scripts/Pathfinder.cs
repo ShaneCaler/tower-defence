@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Pathfinder : MonoBehaviour {
 
-    Dictionary<Vector2Int, Waypoint> grid = new Dictionary<Vector2Int, Waypoint>();
+	[SerializeField] int castleHitValue = 100;
+	public Waypoint start, end;
+
+	Dictionary<Vector2Int, Waypoint> grid = new Dictionary<Vector2Int, Waypoint>();
     Queue<Waypoint> queue = new Queue<Waypoint>();
     List<Waypoint> path = new List<Waypoint>();
-    [SerializeField] Waypoint start, end;
-    [SerializeField] int castleHitValue = 100;
-
     Scoreboard scoreBoard;
     Waypoint searchCenter;
     bool isRunning = true; // todo make private

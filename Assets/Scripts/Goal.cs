@@ -17,7 +17,7 @@ public class Goal : MonoBehaviour {
     {
         GetComponent<AudioSource>().PlayOneShot(goalSFX);
         scoreboard.ScoreHit(scorePerHit);
-        print("trigger");
+        print("Scored");
     }
 
 }
